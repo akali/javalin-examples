@@ -13,17 +13,6 @@ public class Main {
             .port(3000)
             .start();
 
-        app.get("/", ctx -> {
-            HashMap<String, Object> map = new HashMap<String, Object>() {
-                {
-                    put("title", "My message desc");
-                }
-            };
-            map.put("messages", new ArrayList<Message>() {{
-                add(new Message("chrome", "Hi there!!"));
-                add(new Message("arpanetus", "Hello!!!!!"));
-            }});
-            ctx.renderMustache("template/layout.mustache", map);
-        });
+        app.get("/", MessagesController.index);
     }
 }
