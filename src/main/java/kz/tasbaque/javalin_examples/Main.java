@@ -1,10 +1,7 @@
 package kz.tasbaque.javalin_examples;
 
 import io.javalin.Javalin;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import kz.tasbaque.javalin_examples.controller.MessagesController;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,5 +11,6 @@ public class Main {
             .start();
 
         app.get("/", MessagesController.index);
+        app.post("/", MessagesController.newMessage);
     }
 }

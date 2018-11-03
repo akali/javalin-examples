@@ -1,10 +1,23 @@
-package kz.tasbaque.javalin_examples;
+package kz.tasbaque.javalin_examples.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Message {
     private String author, message;
+
+    @Override
+    public String toString() {
+        return "Message{" +
+            "author='" + author + '\'' +
+            ", message='" + message + '\'' +
+            ", localDateTime=" + localDateTime +
+            '}';
+    }
+
+    public Message() {
+
+    }
 
     public String getLocalDateTime() {
         return localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
