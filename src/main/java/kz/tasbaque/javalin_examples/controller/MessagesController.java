@@ -36,4 +36,15 @@ public class MessagesController {
         map.put("messages", MessagesDao.getInstance().getMessages());
         ctx.renderMustache("template/layout.mustache", map);
     };
+    public static Handler getAuthorPosts = ctx -> {
+
+        Map<String, Object> map = new HashMap<String, Object>() {
+            {
+                put("title", "My message desc");
+            }
+        };
+        map.put("messages", MessagesDao.getInstance().getMessagesOfAuthor(ctx.param("author")));
+
+        ctx.renderMustache("template/layout.mustache", map);
+    };
 }

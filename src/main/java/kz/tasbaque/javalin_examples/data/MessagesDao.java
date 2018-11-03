@@ -3,16 +3,11 @@ package kz.tasbaque.javalin_examples.data;
 import kz.tasbaque.javalin_examples.model.Message;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MessagesDao {
     private static MessagesDao ourInstance = new MessagesDao();
-
-    public static MessagesDao getInstance() {
-        return ourInstance;
-    }
-
     private List<Message> messages;
 
     private MessagesDao() {
@@ -21,7 +16,9 @@ public class MessagesDao {
         messages.add(new Message("arpanetus", "Hello!!!!!"));
     }
 
-//    public List<Message> getMessageWithAuthor()
+    public static MessagesDao getInstance() {
+        return ourInstance;
+    }
 
     public List<Message> getMessages() {
         return messages;
@@ -29,5 +26,12 @@ public class MessagesDao {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    public List<Message> getMessagesOfAuthor(String author) {
+        return
+            this.messages.stream()
+                .filter(message -> author.equals(message.getAuthor()))
+                .collect(Collectors.toList());
     }
 }

@@ -12,5 +12,7 @@ public class Main {
 
         app.get("/", MessagesController.index);
         app.post("/", MessagesController.newMessage);
+
+        app.get("/:author", MessagesController.getAuthorPosts);
     }
 }
