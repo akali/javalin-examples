@@ -1,6 +1,7 @@
 package kz.tasbaque.javalin_examples.controller;
 
 import io.javalin.Handler;
+import io.netty.handler.codec.http.QueryStringDecoder;
 import kz.tasbaque.javalin_examples.data.MessagesDao;
 import kz.tasbaque.javalin_examples.model.Message;
 
@@ -19,26 +20,13 @@ public class MessagesController {
         ctx.renderMustache("template/layout.mustache", map);
     };
     public static Handler newMessage = ctx -> {
-        Message message = new Message();
+        QueryStringDecoder qsd = new QueryStringDecoder("?" + ctx.body());
 
-        Arrays.stream(ctx.body().split("&"))
-        .forEach(keyValue -> {
+        Message message = new Message(
+            qsd.parameters().get("message").get(0),
+            qsd.parameters().get("author").get(0));
 
-            String key = keyValue.split("=")[0];
-            String value = keyValue.split("=")[1];
-
-            switch (key.toLowerCase()) {
-                case "message":
-                    message.setMessage(value);
-                    break;
-                case "author":
-                    message.setAuthor(value);
-                    break;
-            }
-        });
         MessagesDao.getInstance().getMessages().add(message);
-
-        System.err.println(message);
 
         Map<String, Object> map = new HashMap<String, Object>() {
             {
